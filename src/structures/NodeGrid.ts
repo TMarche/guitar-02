@@ -8,7 +8,7 @@ export class FretBoard {
 
         for (const openNote of openNotes) {
             const currentString: NoteNode[] = [];
-            let currentPosition = (fretCount + 1) * 10;
+            let currentWidth = (fretCount + 1) * 10;
             const startIdx = noteCircle.items.findIndex(
                 (note: string) => openNote.toLowerCase() === note
             );
@@ -17,8 +17,8 @@ export class FretBoard {
             for (let i = 0; i < fretCount + 1; i++) {
                 const currentNote = noteCircle.get(startIdx + i);
 
-                currentString.push(new NoteNode(currentNote, currentPosition));
-                currentPosition -= 10;
+                currentString.push(new NoteNode(currentNote, currentWidth));
+                currentWidth -= 10;
             }
 
             // Add string to fretboard
@@ -30,11 +30,11 @@ export class FretBoard {
 }
 
 export class NoteNode {
-    position: number;
+    width: number;
     note: string;
 
-    constructor(note: string, position: number) {
+    constructor(note: string, width: number) {
         this.note = note;
-        this.position = position;
+        this.width = width;
     }
 }

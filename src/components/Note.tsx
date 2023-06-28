@@ -1,15 +1,28 @@
 import { NoteNode } from "../structures/NodeGrid";
 
-function Note({ noteNode, idx }: { idx: number; noteNode: NoteNode }) {
+function NoteSpace({
+    noteNode,
+    stringIdx,
+    noteIdx,
+}: {
+    stringIdx: number;
+    noteIdx: number;
+    noteNode: NoteNode;
+}) {
     return (
         <div
-            style={{ marginLeft: idx === 0 ? 0 : noteNode.position }}
-            className="flex flex-row w-10 h-10 justify-center items-center bg-red-400 rounded-full
-            border-white border-2 hover:bg-red-600 duration-300 hover:cursor-pointer"
+            style={{ width: noteNode.width + 50, top: stringIdx * 50 - 20 }}
+            className="relative flex flex-row justify-center"
         >
-            <div>{noteNode.note}</div>
+            <div
+                className="absolute flex flex-row w-10 h-10 justify-center items-center rounded-full
+                bg-white
+                border-white border-2 hover:bg-blue-300 duration-300 hover:cursor-pointer"
+            >
+                <div>{noteNode.note}</div>
+            </div>
         </div>
     );
 }
 
-export default Note;
+export default NoteSpace;
