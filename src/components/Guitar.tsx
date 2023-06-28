@@ -11,10 +11,10 @@ function Guitar({ fretBoard }: { fretBoard: NoteNode[][] }) {
             <div
                 style={{
                     width: 10,
-                    left: fretBoard[0][0].width + 50,
+                    left: fretBoard[0][0].width + 45,
                     height: `calc(100% + 10px)`,
                 }}
-                className="z-10 absolute -left-[5px] -top-[5px] bg-white rounded-lg"
+                className="z-10 absolute -top-[5px] bg-white rounded-lg"
             ></div>
             {/* Board */}
             <div
@@ -25,6 +25,21 @@ function Guitar({ fretBoard }: { fretBoard: NoteNode[][] }) {
                 className={`absolute h-full border-2 border-white rounded-lg
                     backdrop-blur drop-shadow bg-white bg-opacity-10`}
             ></div>
+            {/* Frets */}
+            {fretBoard[0].map((_, noteIdx) => {
+                const cumulativeLeft = fretBoard[0]
+                    .slice(1, noteIdx)
+                    .map((x) => x.width + 50)
+                    .reduce((x: number, y: number) => x + y, 0);
+                return (
+                    <div
+                        style={{
+                            left: fretBoard[0][0].width + 50 + cumulativeLeft,
+                        }}
+                        className="absolute top-0 w-[2px] h-full bg-white bg-opacity-50"
+                    />
+                );
+            })}
             {fretBoard.map((guitarString, stringIdx) => (
                 // Guitar String
                 <div className="relative flex flex-row">
@@ -37,7 +52,7 @@ function Guitar({ fretBoard }: { fretBoard: NoteNode[][] }) {
                                 top: stringIdx * 50,
                             }}
                             className="absolute w-full h-[2px] bg-white top-0 left-0"
-                        ></div>
+                        />
                     )}
                     {/* Note */}
                     {guitarString.map((noteNode, noteIdx) => (
