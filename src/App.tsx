@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Note from "./components/Note";
+import { GuitarString, LatticeGraph } from "./structures/LatticeGraph";
+import { FretBoard } from "./structures/NodeGrid";
 
 function App() {
-  const [count, setCount] = useState(0)
+    // const guitarString = GuitarString.buildString("e", 22);
+    // console.log(guitarString);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    // const renderGuitarStrings = (guitarStrings: LatticeGraph<string>) => {
+    //     const elements = [];
+    //     elements.push();
+    // };
+
+    const fretBoard = FretBoard.buildFretboard(
+        "E A D G B E".split(" ").reverse(),
+        12
+    );
+
+    return (
+        <div
+            className="flex flex-col h-screen w-screen justify-center items-center
+            bg-gradient-to-br from-pink-300 via-blue-500 to-purple-900"
+        >
+            <div className="relative flex flex-col gap-2 backdrop-blur border-2 rounded-lg p-4 shadow-md">
+                <div className="absolute h-full w-full bg-red-100 bg-opacity-20 top-0 left-0"></div>
+                {fretBoard.map((guitarString) => (
+                    <div className="relative flex flex-row opacity-[1]">
+                        <div className="absolute -z-10 w-full h-[2px] bg-white top-[50%] left-0"></div>
+                        {guitarString.map((noteNode, idx) => (
+                            <Note idx={idx} noteNode={noteNode} />
+                        ))}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 }
 
-export default App
+export default App;
