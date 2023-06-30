@@ -1,7 +1,14 @@
 import { NoteNode } from "../structures/NodeGrid";
+import { NoteCoords, areCoordsInList } from "../utils/ChordSolver";
 import Note from "./Note";
 
-function Guitar({ fretBoard }: { fretBoard: NoteNode[][] }) {
+function Guitar({
+    fretBoard,
+    chordSolutions,
+}: {
+    fretBoard: NoteNode[][];
+    chordSolutions: NoteCoords[][];
+}) {
     return (
         <div
             style={{ height: (fretBoard.length - 1) * 50 }}
@@ -60,6 +67,11 @@ function Guitar({ fretBoard }: { fretBoard: NoteNode[][] }) {
                             stringIdx={stringIdx}
                             noteIdx={noteIdx}
                             noteNode={noteNode}
+                            highlight={areCoordsInList(
+                                stringIdx,
+                                noteIdx,
+                                chordSolutions
+                            )}
                         />
                     ))}
                 </div>
